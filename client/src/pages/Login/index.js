@@ -1,7 +1,15 @@
 import React from 'react';
+import { Title, Paragraph } from './styled';
 
 const Login = () => {
-  return <h1>Login Page</h1>;
+  return (
+    <>
+      <Title isRed={false}>
+        Login Page <small>Hello World</small>
+      </Title>
+      <Paragraph>Lorem ipsum dolor sit amet.</Paragraph>
+    </>
+  );
 };
 
 export default Login;
