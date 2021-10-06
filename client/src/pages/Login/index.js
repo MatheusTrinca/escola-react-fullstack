@@ -3,6 +3,7 @@ import { Title, Paragraph } from './styled';
 import { Container } from '../../styles/GlobalStyles';
 
 const Login = () => {
+  console.log('Render');
   return (
     <Container>
       <Title isRed={false}>
