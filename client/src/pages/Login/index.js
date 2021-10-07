@@ -3,6 +3,7 @@ import { Title, Paragraph } from './styled';
 import { Container } from '../../styles/GlobalStyles';
 import axios from '../../config/axios';
 import { useDispatch } from 'react-redux';
+import * as exampleActions from '../../store/modules/example/actions';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Login = () => {
 
   const handleClick = e => {
     e.preventDefault();
-    dispatch({ type: 'BOTAO_CLICADO' });
+    dispatch(exampleActions.clicaBotao());
   };
 
   return (
