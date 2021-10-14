@@ -2,22 +2,19 @@ import React from 'react';
 import { Nav } from './styled';
 import { FaHome, FaSignInAlt, FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const Header = () => {
-  const { botaoClicado } = useSelector(state => state.example);
   return (
     <Nav>
       <Link to="/">
         <FaHome size={24} />
       </Link>
-      <Link to="/login">
+      <Link to="/register">
         <FaUserAlt size={24} />
       </Link>
-      <Link to="/dfsdf">
+      <Link to="/login">
         <FaSignInAlt size={24} />
       </Link>
-      {botaoClicado ? 'Clicado' : 'Não Clicado'}
     </Nav>
   );
 };

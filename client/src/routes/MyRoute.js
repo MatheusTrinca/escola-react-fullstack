@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 const MyRoute = ({ component: Component, isClosed, ...rest }) => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   if (isClosed && !isLoggedIn) {
     return (
       <Redirect

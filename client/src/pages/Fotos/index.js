@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container } from '../../styles/GlobalStyles';
 
-const Login = () => {
+const Fotos = () => {
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Fotos</h1>
     </Container>
   );
 };
 
-export default Login;
+export default Fotos;
