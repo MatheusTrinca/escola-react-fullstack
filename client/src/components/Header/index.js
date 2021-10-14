@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
-  const { botaoClicado } = useSelector(state => state.exampleReducer);
+  const { botaoClicado } = useSelector(state => state.example);
   return (
     <Nav>
       <Link to="/">

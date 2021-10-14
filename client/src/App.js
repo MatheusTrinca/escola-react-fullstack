@@ -4,17 +4,20 @@ import Routes from './routes';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
-import store from './store/index';
+import store, { persistor } from './store/index';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Header />
-        <Routes />
-        <GlobalStyles />
-        <ToastContainer autoClose={3000} />
-      </BrowserRouter>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <Header />
+          <Routes />
+          <GlobalStyles />
+          <ToastContainer autoClose={3000} />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }
