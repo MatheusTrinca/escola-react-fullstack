@@ -29,6 +29,10 @@ export default createGlobalStyle`
     font-weight: 700;
   }
 
+  button:hover {
+    filter: brightness(85%); 
+  }
+
   a {
     text-decoration: none;
     color: ${colors.primaryColor};
