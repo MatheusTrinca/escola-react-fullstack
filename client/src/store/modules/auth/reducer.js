@@ -9,8 +9,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_REQUEST:
-      console.log('REDUCER', action.payload);
+    case types.LOGIN_SUCCESS:
+      return {
+        ...state,
+      };
+    case types.LOGIN_FAILURE:
       return {
         ...state,
       };

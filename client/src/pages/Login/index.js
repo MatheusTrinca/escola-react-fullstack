@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Container } from '../../styles/GlobalStyles';
 import { Form } from '../Register/styled';
 import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
 import * as actions from '../../store/modules/auth/actions';
+import { get } from 'lodash';
 
-const Login = () => {
+const Login = props => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const prevPath = get(props, 'location.state.prevPath', '/');
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -18,7 +22,7 @@ const Login = () => {
       toast.error('Email ou Senha inválidos');
     }
     if (formErrors) return;
-    dispatch(actions.loginRequest({ email, password }));
+    dispatch(actions.loginRequest({ email, password, prevPath, history }));
   };
 
   return (
