@@ -6,12 +6,14 @@ import { isEmail } from 'validator';
 import axios from '../../config/axios';
 import { get } from 'lodash';
 import { useHistory } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const Register = () => {
   const history = useHistory();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -33,6 +35,7 @@ const Register = () => {
 
     if (formErrors) return;
 
+    setIsLoading(true);
     try {
       await axios.post('/users', {
         nome,
@@ -40,15 +43,18 @@ const Register = () => {
         password,
       });
       toast.success('Você fez o seu cadastro');
+      setIsLoading(false);
       history.push('/login');
     } catch (err) {
       const errors = get(err, 'response.data.errors', []);
+      setIsLoading(false);
       errors.forEach(error => toast.error(error));
     }
   };
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <h1>Crie sua conta</h1>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="nome">

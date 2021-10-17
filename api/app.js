@@ -8,6 +8,7 @@ dotenv.config();
 import './src/database';
 
 import express from 'express';
+import delay from 'express-delay';
 import homeRoutes from './src/routes/homeRoutes';
 import userRoutes from './src/routes/userRoutes';
 import tokenRoutes from './src/routes/tokenRoutes';
@@ -30,7 +31,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(helmet());
-
+app.use(delay(2000));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(resolve(__dirname, 'uploads')));

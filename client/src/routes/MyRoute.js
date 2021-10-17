@@ -1,9 +1,10 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const MyRoute = ({ component: Component, isClosed, ...rest }) => {
-  const isLoggedIn = false;
+  const { isLoggedIn } = useSelector(state => state.auth);
   if (isClosed && !isLoggedIn) {
     return (
       <Redirect
