@@ -14,3 +14,8 @@ export const loginFailure = payload => ({
   type: types.LOGIN_FAILURE,
   payload,
 });
+
+export const registerRequest = payload => ({
+  type: types.REGISTER_REQUEST,
+  payload,
+});

@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '../../styles/GlobalStyles';
 import { Form } from './styled';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
-import axios from '../../config/axios';
-import { get } from 'lodash';
-import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../../store/modules/auth/actions';
 
 const Register = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const {
+    id,
+    nome: nomeStored,
+    email: emailStored,
+    isLoading,
+  } = useSelector(state => state.auth.user);
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    setNome(nomeStored);
+    setEmail(emailStored);
+  }, [id, nomeStored, emailStored]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -28,38 +39,24 @@ const Register = () => {
       toast.error('E-mail inválido');
     }
 
-    if (password.length < 6 || password.length > 50) {
+    if (!id && (password.length < 6 || password.length > 50)) {
       formErrors = true;
       toast.error('Senha deve ter entre 6 e 50 caracteres');
     }
 
     if (formErrors) return;
-
-    setIsLoading(true);
-    try {
-      await axios.post('/users', {
-        nome,
-        email,
-        password,
-      });
-      toast.success('Você fez o seu cadastro');
-      setIsLoading(false);
-      history.push('/login');
-    } catch (err) {
-      const errors = get(err, 'response.data.errors', []);
-      setIsLoading(false);
-      errors.forEach(error => toast.error(error));
-    }
+    dispatch(actions.registerRequest({ id, nome, email, password }));
   };
 
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <h1>Crie sua conta</h1>
+      <h1>{id ? 'Edite' : 'Crie'} sua conta</h1>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="nome">
           Nome:
           <input
+            value={nome}
             type="text"
             name="nome"
             id="nome"
@@ -70,6 +67,7 @@ const Register = () => {
         <label htmlFor="email">
           Email:
           <input
+            value={email}
             type="email"
             name="email"
             id="email"
@@ -87,7 +85,7 @@ const Register = () => {
             onChange={e => setPassword(e.target.value)}
           />
         </label>
-        <button type="submit">Criar minha conta</button>
+        <button type="submit">{id ? 'Editar' : 'Criar'} minha conta</button>
       </Form>
     </Container>
   );

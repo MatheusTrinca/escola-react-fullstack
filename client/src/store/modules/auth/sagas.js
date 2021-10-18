@@ -27,7 +27,28 @@ function persistRehydrate({ payload }) {
   axios.defaults.headers.Authorization = `Bearer ${token}`;
 }
 
+function registerRequest({ payload }) {
+  const { id, nome, email, password } = payload;
+
+  // setIsLoading(true);
+  // try {
+  //   await axios.post('/users', {
+  //     nome,
+  //     email,
+  //     password,
+  //   });
+  //   toast.success('Você fez o seu cadastro');
+  //   setIsLoading(false);
+  //   history.push('/login');
+  // } catch (err) {
+  //   const errors = get(err, 'response.data.errors', []);
+  //   setIsLoading(false);
+  //   errors.forEach(error => toast.error(error));
+  // }
+}
+
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
   takeLatest(types.PERSIST_REHYDRATE, persistRehydrate),
+  takeLatest(types.REGISTER_REQUEST, registerRequest),
 ]);
